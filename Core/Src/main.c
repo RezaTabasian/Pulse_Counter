@@ -111,6 +111,12 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_UART_Transmit(&huart1, "Chanel 1 count :" , 16, HAL_MAX_DELAY);
+  HAL_UART_Transmit(&huart1, "---> 0", strlen("---> 0"), HAL_MAX_DELAY);
+  HAL_UART_Transmit(&huart1, "\n\r" , strlen("\n\r"), HAL_MAX_DELAY);
+  HAL_UART_Transmit(&huart1, "Chanel 2 count :" , 16, HAL_MAX_DELAY);
+  HAL_UART_Transmit(&huart1, "---> 0", strlen("---> 0"), HAL_MAX_DELAY);
+  HAL_UART_Transmit(&huart1, "\n\r" , strlen("\n\r"), HAL_MAX_DELAY);
   while (1)
   {
     /* USER CODE END WHILE */
