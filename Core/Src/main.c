@@ -74,7 +74,10 @@ static void MX_TIM1_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	uint16_t Counter=0;
+	uint16_t Counter1=0;
+	uint16_t Counter2=0;
+	uint16_t temp1=0;
+	uint16_t temp2=0;
 	uint8_t string[5],string_recive[6];
   /* USER CODE END 1 */
 
@@ -113,40 +116,62 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  Counter = __HAL_TIM_GET_COUNTER(&htim3);
-	  itoa(Counter,string,10);
-	  HAL_UART_Transmit(&huart1, "Chanel 1 count :" , 16, HAL_MAX_DELAY);
-	  if(HAL_GPIO_ReadPin(CH1_Direction_GPIO_Port, CH1_Direction_Pin))
+	  Counter1 = __HAL_TIM_GET_COUNTER(&htim3);
+	  Counter2 = __HAL_TIM_GET_COUNTER(&htim1);
+	  if(Counter1 != temp1)
 	  {
-		  HAL_UART_Transmit(&huart1, "--->  ", strlen("--->  "), HAL_MAX_DELAY);
-	  }
-	  else
-	  {
-		  HAL_UART_Transmit(&huart1, "<---  ", strlen("--->  "), HAL_MAX_DELAY);
-	  }
-	  HAL_UART_Transmit(&huart1, string , strlen(string), HAL_MAX_DELAY);
-	  HAL_UART_Transmit(&huart1, "\n\r" , strlen("\n\r"), HAL_MAX_DELAY);
+		  while(temp1 != Counter1)
+		  {
+			  Counter1 = __HAL_TIM_GET_COUNTER(&htim3);
+			  HAL_Delay(500);
+			  temp1 = Counter1;
+		  }
+		  itoa(Counter1,string,10);
+		  HAL_UART_Transmit(&huart1, "Chanel 1 count :" , 16, HAL_MAX_DELAY);
+		  if(HAL_GPIO_ReadPin(CH1_Direction_GPIO_Port, CH1_Direction_Pin))
+		  {
+			  HAL_UART_Transmit(&huart1, "--->  ", strlen("--->  "), HAL_MAX_DELAY);
+		  }
+		  else
+		  {
+			  HAL_UART_Transmit(&huart1, "<---  ", strlen("--->  "), HAL_MAX_DELAY);
+		  }
+		  HAL_UART_Transmit(&huart1, string , strlen(string), HAL_MAX_DELAY);
+		  HAL_UART_Transmit(&huart1, "\n\r" , strlen("\n\r"), HAL_MAX_DELAY);
 
-	  Counter = __HAL_TIM_GET_COUNTER(&htim1);
-	  itoa(Counter,string,10);
-	  HAL_UART_Transmit(&huart1, "Chanel 2 count :" , 16, HAL_MAX_DELAY);
-	  if(HAL_GPIO_ReadPin(CH2_Direction_GPIO_Port, CH2_Direction_Pin))
-	  {
-		  HAL_UART_Transmit(&huart1, "--->  " , strlen("--->  "), HAL_MAX_DELAY);
 	  }
-	  else
+
+	  if(Counter2 != temp2)
 	  {
-		  HAL_UART_Transmit(&huart1, "<---  ", strlen("--->  "), HAL_MAX_DELAY);
+		  while(temp2 != Counter2)
+		  {
+			  Counter2 = __HAL_TIM_GET_COUNTER(&htim1);
+			  HAL_Delay(500);
+			  temp2 = Counter2;
+		  }
+		  HAL_Delay(1000);
+		  Counter2 = __HAL_TIM_GET_COUNTER(&htim1);
+		  itoa(Counter2,string,10);
+		  HAL_UART_Transmit(&huart1, "Chanel 2 count :" , 16, HAL_MAX_DELAY);
+		  if(HAL_GPIO_ReadPin(CH2_Direction_GPIO_Port, CH2_Direction_Pin))
+		  {
+			  HAL_UART_Transmit(&huart1, "--->  " , strlen("--->  "), HAL_MAX_DELAY);
+		  }
+		  else
+		  {
+			  HAL_UART_Transmit(&huart1, "<---  ", strlen("--->  "), HAL_MAX_DELAY);
+		  }
+		  HAL_UART_Transmit(&huart1, string , strlen(string), HAL_MAX_DELAY);
+		  HAL_UART_Transmit(&huart1, "\n\r" , strlen("\n\r"), HAL_MAX_DELAY);
+		  temp2 = Counter2;
 	  }
-	  HAL_UART_Transmit(&huart1, string , strlen(string), HAL_MAX_DELAY);
-	  HAL_UART_Transmit(&huart1, "\n\r" , strlen("\n\r"), HAL_MAX_DELAY);
 //	  if(memcmp(string_recive,"clear",5))
 //	  {
 //		  memset(string_recive ,0 ,6 );
 //		  __HAL_TIM_SetCounter(&htim1, 0);
 //		  __HAL_TIM_SetCounter(&htim3, 0);
 //	  }
-	  HAL_Delay(1000);
+//	  HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }

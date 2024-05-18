@@ -63,8 +63,8 @@ all: main-build
 main-build: Pulse_Counter.elf secondary-outputs
 
 # Tool invocations
-Pulse_Counter.elf Pulse_Counter.map: $(OBJS) $(USER_OBJS) D:\Git_1403\Pulse_Counter\STM32F030F4PX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Pulse_Counter.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"D:\Git_1403\Pulse_Counter\STM32F030F4PX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Pulse_Counter.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Pulse_Counter.elf Pulse_Counter.map: $(OBJS) $(USER_OBJS) D:\tabasian\Project1403\Pulse_Counter\STM32F030F4PX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Pulse_Counter.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"D:\tabasian\Project1403\Pulse_Counter\STM32F030F4PX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Pulse_Counter.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
